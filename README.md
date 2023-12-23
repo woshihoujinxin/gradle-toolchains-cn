@@ -8,7 +8,7 @@ Requires Gradle 7.6 or later to work.
 > and must be applied in `build.gradle[.kts]` files, this is a **SETTINGS PLUGIN** and 
 > must be applied in `settings.gradle[.kts]` files.
 
-本插件基于foojay toolchains plugin 用户从国内源解决工具链问题
+本插件基于foojay toolchains plugin 解决国内用户 从国内源解决工具链问题，思路
 
 # Usage
 
@@ -21,7 +21,7 @@ To make use of the plugin add following to your `settings.gradle[.kts]` file.
 ```kotlin
 // settings.gradle.kts
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+    id("io.github.hjx.toolchains.jdk-resolver-convention") version "0.0.1"
 }
 ```
 
@@ -34,7 +34,7 @@ plugins {
 ```groovy
 // settings.gradle
 plugins {
-    id("org.gradle.toolchains.foojay-resolver-convention") version "0.7.0"
+    id("io.github.hjx.toolchains.jdk-resolver-convention") version "0.0.1"
 }
 ```
 
@@ -50,14 +50,14 @@ What it does is equivalent to applying the base plugin and some extra configurat
 ```kotlin
 // settings.gradle.kts
 plugins {
-    id("org.gradle.toolchains.foojay-resolver") version "0.7.0"
+    id("io.github.hjx.toolchains.jdk-resolver") version "0.0.1"
 }
 
 toolchainManagement {
     jvm {
         javaRepositories {
-            repository("foojay") {
-                resolverClass.set(org.gradle.toolchains.foojay.FoojayToolchainResolver::class.java)
+            repository("jdk") {
+                resolverClass.set(io.github.hjx.toolchains.java.JDKToolchainResolver::class.java)
             }
         }
     }
@@ -73,14 +73,14 @@ toolchainManagement {
 ```groovy
 // settings.gradle
 plugins {
-    id("org.gradle.toolchains.foojay-resolver") version "0.7.0"
+    id("io.github.hjx.toolchains.jdk-resolver") version "0.0.1"
 }
 
 toolchainManagement {
     jvm {
         javaRepositories {
-            repository("foojay") {
-                resolverClass = org.gradle.toolchains.foojay.FoojayToolchainResolver
+            repository("jdk") {
+                resolverClass = io.github.hjx.toolchains.java.JDKToolchainResolver
             }
         }
     }
@@ -99,24 +99,11 @@ The main thing the plugin does is to match [Gradle's toolchain specifications](h
 
 ## Vendors
 
-There is mostly a 1-to-1 relationship between the DiscoAPI's distributions and Gradle vendors.
-The plugin works with the following mapping:
+仅支持Temurin的国内代理
 
 | Gradle JVM Vendor       | Foojay Distribution       |
 |-------------------------|---------------------------|
 | ADOPTIUM                | Temurin                   |
-| ADOPTONEJDK             | AOJ                       |
-| AMAZON                  | Corretto                  |
-| APPLE                   | -                         |
-| AZUL                    | Zulu                      |
-| BELLSOFT                | Liberica                  |
-| GRAAL_VM                | Graal VM CE 8/11/16/17/19 |
-| HEWLETT_PACKARD         | -                         |
-| IBM                     | Semeru                    |
-| IBM_SEMERU              | Semeru                    |
-| MICROSOFT               | Microsoft                 |
-| ORACLE                  | Oracle OpenJDK            |
-| SAP                     | SAP Machine               |
 
 **To note:**
 Not all Gradle vendors have an equivalent DiscoAPI distribution, empty cells indicate that no toolchain will be provisioned.
@@ -133,18 +120,6 @@ What this criteria does in the plugin is to influence the Vendor-to-Distribution
 |-------------------------|---------------------|
 | \<no vendor specified\> | Semeru              |
 | ADOPTIUM                | -                   |
-| ADOPTONEJDK             | AOJ OpenJ9          |
-| AMAZON                  | -                   |
-| APPLE                   | -                   |
-| AZUL                    | -                   |
-| BELLSOFT                | -                   |
-| GRAAL_VM                | -                   |
-| HEWLETT_PACKARD         | -                   |
-| IBM                     | Semeru              |
-| IBM_SEMERU              | Semeru              |
-| MICROSOFT               | -                   |
-| ORACLE                  | -                   |
-| SAP                     | -                   |
 
 Empty cells indicate that no toolchain will be provisioned
 

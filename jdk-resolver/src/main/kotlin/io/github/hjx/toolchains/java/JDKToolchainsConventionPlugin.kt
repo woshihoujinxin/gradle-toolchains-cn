@@ -12,7 +12,7 @@ abstract class JDKToolchainsConventionPlugin: AbstractJDKToolchainPlugin() {
         settings.toolchainManagement {
             jvm {
                 javaRepositories {
-                    repository("foojay") {
+                    repository("jdk") {
                         resolverClass.set(JDKToolchainResolver::class.java)
                     }
                 }
