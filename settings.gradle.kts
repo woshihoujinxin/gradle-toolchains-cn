@@ -4,14 +4,12 @@ plugins {
 }
 
 gradleEnterprise {
-    if (System.getenv("CI") != null) {
-        buildScan {
-            publishAlways()
-            termsOfServiceUrl = "https://gradle.com/terms-of-service"
-            termsOfServiceAgree = "yes"
-        }
+    buildScan {
+        publishAlways()
+        termsOfServiceUrl = "https://gradle.com/terms-of-service"
+        termsOfServiceAgree = "yes"
     }
 }
 
-rootProject.name = "gradle-toolchains"
+rootProject.name = "gradle-toolchains-cn"
 include("jdk-resolver")

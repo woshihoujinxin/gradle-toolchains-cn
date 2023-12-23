@@ -64,7 +64,7 @@ class JDKDownloadApi {
             arch = architectureMapping.get(architecture).toString()
         }
         val endpoint = "${DISTRIBUTIONS_ENDPOINT}/${version}/jdk/${arch}/${operatingSystemMapping.get(operatingSystem)}"
-        println("===============>${endpoint}")
+        println("Download url is [ ${SCHEMA}://${endpoint} ]")
         fetchDistributionsIfMissing(endpoint)
         if(!distributions.isEmpty()) {
             val uri = URI.create("${SCHEMA}://${endpoint}/${distributions.get(0).packageName}")

@@ -9,14 +9,14 @@ class JDKToolchainsPluginFunctionalTest: AbstractJDKToolchainsPluginFunctionalTe
     fun `can use base plugin`() {
         val settings = """
             plugins {
-                id("org.gradle.toolchains.foojay-resolver")
+                id("io.github.hjx.toolchains.jdk-resolver")
             }
             
             toolchainManagement {
                 jvm { 
                     javaRepositories {
-                        repository("foojay") { 
-                            resolverClass.set(org.gradle.toolchains.foojay.FoojayToolchainResolver::class.java)
+                        repository("jdk") { 
+                            resolverClass.set(io.github.hjx.toolchains.java.JDKToolchainResolver::class.java)
                         }
                     }
                 }
@@ -43,14 +43,14 @@ class JDKToolchainsPluginFunctionalTest: AbstractJDKToolchainsPluginFunctionalTe
     fun `generates useful error for unsupported Gradle versions`() {
         val settings = """
             plugins {
-                id("org.gradle.toolchains.foojay-resolver")
+                id("io.github.hjx.toolchains.jdk-resolver")
             }
             
             toolchainManagement {
                 jvm { 
                     javaRepositories {
-                        repository("foojay") { 
-                            resolverClass.set(org.gradle.toolchains.foojay.FoojayToolchainResolver::class.java)
+                        repository("jdk") { 
+                            resolverClass.set(io.github.hjx.toolchains.java.JDKToolchainResolver::class.java)
                         }
                     }
                 }
@@ -82,14 +82,14 @@ class JDKToolchainsPluginFunctionalTest: AbstractJDKToolchainsPluginFunctionalTe
         val buildScript = """
             plugins {
                 java
-                id("org.gradle.toolchains.foojay-resolver")
+                id("io.github.hjx.toolchains.jdk-resolver")
             }
             
             toolchainManagement {
                 jvm { 
                     javaRepositories {
-                        repository("foojay") { 
-                            resolverClass.set(org.gradle.toolchains.foojay.FoojayToolchainResolver::class.java)
+                        repository("jdk") { 
+                            resolverClass.set(io.github.hjx.toolchains.java.JDKToolchainResolver::class.java)
                         }
                     }
                 }
@@ -103,7 +103,7 @@ class JDKToolchainsPluginFunctionalTest: AbstractJDKToolchainsPluginFunctionalTe
         """
         val result = runner(settings, buildScript).buildAndFail()
 
-        assertTrue("> Failed to apply plugin 'org.gradle.toolchains.foojay-resolver'.\n" +
+        assertTrue("> Failed to apply plugin 'io.github.hjx.toolchains.jdk-resolver'.\n" +
                 "   > Settings plugins must be applied in the settings script." in result.output)
     }
 }
