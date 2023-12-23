@@ -5,6 +5,8 @@ import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JvmImplementation
 import org.gradle.jvm.toolchain.JvmVendorSpec
 import org.gradle.jvm.toolchain.internal.DefaultJvmVendorSpec.any
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
 import java.net.URI
 
 @Suppress("DEPRECATION")
@@ -101,6 +103,26 @@ fun parseDistributions(json: String): List<Distribution> {
     return Gson().fromJson(json, DistributionsResult::class.java).result
 }
 
+fun parseDistributionsByJsoup(html: String): List<Distribution2> {
+
+    var list = listOf<Distribution2>()
+    val doc: Document = Jsoup.parse(html);
+    val rows = doc.select("#list tbody tr:not(:first-child)")
+
+    for (row in rows) {
+        val aTags = row.select("a") // 选择表格的单元格元素
+        for (aTag in aTags) {
+            val aHref: String = aTag.attr("href")
+            if (aHref.contains("zip") || aHref.contains(".tar.gz")) {
+                list = list + Distribution2(aHref)
+            }
+        }
+    }
+    return list;
+}
+
+
+
 /**
  * The data class for the result objects as returned by [FoojayApi.DISTRIBUTIONS_ENDPOINT].
  */
@@ -149,4 +171,13 @@ data class Distribution(
 
 private data class DistributionsResult(
     val result: List<Distribution>
+)
+
+
+data class Distribution2(
+    val packageName: String
+)
+
+private data class Distribution2sResult(
+    val result: List<Distribution2>
 )

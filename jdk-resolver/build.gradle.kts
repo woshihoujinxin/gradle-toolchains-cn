@@ -30,6 +30,8 @@ java {
 
 dependencies {
     implementation("com.google.code.gson:gson:2.10.1")
+    implementation("org.jsoup:jsoup:1.17.1")
+
 }
 
 gradlePlugin {

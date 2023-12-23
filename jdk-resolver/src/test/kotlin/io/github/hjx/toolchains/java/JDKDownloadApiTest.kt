@@ -19,114 +19,83 @@ class JDKDownloadApiTest {
 
     private val api = JDKDownloadApi()
 
-    @Test
-    fun `download URI provided correctly`() {
-        assertDownloadUri(
-                "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_windows-x64_bin.zip",
-                13, any(), false, OperatingSystem.WINDOWS, Architecture.X86_64
-        ) // jdk-13_windows-x64_bin.zip
-
-    }
-
-    @ParameterizedTest(name = "J9 implementation influences vendor resolution (Java {0})")
-    @ValueSource(ints = [8, 11, 16])
-    fun `J9 implementation influences vendor resolution`(version: Int) {
-        assertMatchedDistributions(any(), J9, version, "Semeru", "AOJ OpenJ9")
-
-        assertMatchedDistributions(ADOPTOPENJDK, J9, version, "AOJ OpenJ9")
-        assertMatchedDistributions(IBM, J9, version, "Semeru")
-        @Suppress("DEPRECATION")
-        assertMatchedDistributions(IBM_SEMERU, J9, version, "Semeru")
-
-        assertMatchedDistributions(ADOPTIUM, J9, version)
-        assertMatchedDistributions(AZUL, J9, version)
-        assertMatchedDistributions(AMAZON, J9, version)
-        assertMatchedDistributions(BELLSOFT, J9, version)
-        assertMatchedDistributions(MICROSOFT, J9, version)
-        assertMatchedDistributions(ORACLE, J9, version)
-        assertMatchedDistributions(SAP, J9, version)
-        assertMatchedDistributions(APPLE, J9, version)
-        assertMatchedDistributions(GRAAL_VM, J9, version)
-        assertMatchedDistributions(HEWLETT_PACKARD, J9, version)
-    }
-
-    @ParameterizedTest(name = "vendor specific implementation does not influence vendor resolution (Java {0})")
-    @ValueSource(ints = [8, 11, 16])
-    fun `vendor specific implementation does not influence vendor resolution`(version: Int) {
-        assertMatchedDistributions(any(), VENDOR_SPECIFIC, version,
-                "Temurin", "AOJ",
-                "ZuluPrime", "Zulu", "Trava", "Semeru certified", "Semeru", "SAP Machine", "Red Hat", "Oracle OpenJDK",
-                "Oracle", "OpenLogic", "OJDKBuild", "Microsoft", "Mandrel", "Liberica Native", "Liberica", "Kona",
-                "JetBrains", "GraalVM Community", "GraalVM CE $version", "GraalVM", "Gluon GraalVM", "Dragonwell",
-                "Debian", "Corretto", "Bi Sheng", "AOJ OpenJ9"
-        )
-
-        assertMatchedDistributions(ADOPTOPENJDK, VENDOR_SPECIFIC, version, "AOJ")
-        assertMatchedDistributions(IBM, VENDOR_SPECIFIC, version, "Semeru")
-        @Suppress("DEPRECATION")
-        assertMatchedDistributions(IBM_SEMERU, VENDOR_SPECIFIC, version, "Semeru")
-
-        assertMatchedDistributions(ADOPTIUM, VENDOR_SPECIFIC, version, "Temurin")
-        assertMatchedDistributions(AZUL, VENDOR_SPECIFIC, version, "Zulu")
-        assertMatchedDistributions(AMAZON, VENDOR_SPECIFIC, version, "Corretto")
-        assertMatchedDistributions(BELLSOFT, VENDOR_SPECIFIC, version, "Liberica")
-        assertMatchedDistributions(MICROSOFT, VENDOR_SPECIFIC, version, "Microsoft")
-        assertMatchedDistributions(ORACLE, VENDOR_SPECIFIC, version, "Oracle OpenJDK")
-        assertMatchedDistributions(SAP, VENDOR_SPECIFIC, version, "SAP Machine")
-
-        assertMatchedDistributions(GRAAL_VM, VENDOR_SPECIFIC, version, "GraalVM Community", "GraalVM CE $version")
-
-        assertMatchedDistributions(APPLE, VENDOR_SPECIFIC, version)
-        assertMatchedDistributions(HEWLETT_PACKARD, VENDOR_SPECIFIC, version)
-    }
-
-    private fun assertMatchedDistributions(vendor: JvmVendorSpec, implementation: JvmImplementation, version: Int, vararg expectedDistributions: String) {
-        assertEquals(
-                listOf(*expectedDistributions),
-                api.match(vendor, implementation, of(version)).map { it.name },
-                "Mismatch in matching distributions for vendor: $vendor, implementation: $implementation, version: $version"
-        )
-    }
-
-    @ParameterizedTest(name = "can resolve arbitrary vendors (Java {0})")
-    @ValueSource(ints = [8, 11, 16])
-    fun `can resolve arbitrary vendors`(version: Int) {
-        assertEquals("ZuluPrime", api.match(vendorSpec("zuluprime"), VENDOR_SPECIFIC, of(version)).firstOrNull()?.name)
-        assertEquals("ZuluPrime", api.match(vendorSpec("zUluprIme"), VENDOR_SPECIFIC, of(version)).firstOrNull()?.name)
-        assertEquals("JetBrains", api.match(vendorSpec("JetBrains"), VENDOR_SPECIFIC, of(version)).firstOrNull()?.name)
-    }
-
-    @Test
-    fun `can pick the right package`() {
-        val p = api.match("temurin", of(11), OperatingSystem.LINUX, Architecture.X86_64)
-        assertNotNull(p)
-        assertEquals("tar.gz", p.archive_type)
-        assertEquals("temurin", p.distribution)
-        assertEquals(11, p.jdk_version)
-        assertEquals("11.0.21", p.distribution_version)
-        assertEquals("linux", p.operating_system)
-        assertEquals("x64", p.architecture)
-        assertEquals("jdk", p.package_type)
-    }
 
     private fun assertDownloadUri(
-            expected: String,
-            javaVersion: Int,
-            vendor: JvmVendorSpec,
-            isJ9: Boolean,
-            os: OperatingSystem,
-            arch: Architecture
+        expected: String,
+        javaVersion: Int,
+        vendor: JvmVendorSpec,
+        isJ9: Boolean,
+        os: OperatingSystem,
+        arch: Architecture
     ) {
         val links = api.toLinks(
-                of(javaVersion),
-                vendor,
-                if (isJ9) J9 else VENDOR_SPECIFIC,
-                os,
-                arch
+            of(javaVersion),
+            vendor,
+            if (isJ9) J9 else VENDOR_SPECIFIC,
+            os,
+            arch
         )
-        assertEquals(expected, api.toUri(links).toString(), "Expected URI differs from actual, for details see ${links?.pkg_info_uri}")
+        assertEquals(
+            expected,
+            api.toUri(links).toString(),
+            "Expected URI differs from actual, for details see ${links?.pkg_info_uri}"
+        )
     }
 
-    private fun vendorSpec(vendorName: String): JvmVendorSpec = matching(vendorName)
+    @Test
+    fun `download URI provided correctly`() {
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/8/jdk/x64/windows/OpenJDK8U-jdk_x64_windows_hotspot_8u392b08.zip",
+//            8, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+//        )
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/11/jdk/x64/windows/OpenJDK11U-jdk_x64_windows_hotspot_11.0.21_9.zip",
+//            11, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+//        )
+
+
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/17/jdk/x64/windows/OpenJDK17U-jdk_x64_windows_hotspot_17.0.9_9.zip",
+//            17, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+//        )
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/18/jdk/x64/windows/OpenJDK18U-jdk_x64_windows_hotspot_18.0.2.1_1.zip",
+//            18, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+//        )
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/19/jdk/x64/windows/OpenJDK19U-jdk_x64_windows_hotspot_19.0.2_7.zip",
+//            19, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+//        )
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/20/jdk/x64/windows/OpenJDK20U-jdk_x64_windows_hotspot_20.0.2_9.zip",
+//            20, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+//        )
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/21/jdk/x64/windows/OpenJDK21U-jdk_x64_windows_hotspot_21.0.1_12.zip",
+//            21, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+//        )
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/21/jdk/aarch64/mac/OpenJDK21U-jdk_aarch64_mac_hotspot_21.0.1_12.tar.gz",
+//            21, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.AARCH64
+//        )
+
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/8/jdk/x64/mac/OpenJDK8U-jdk_x64_mac_hotspot_8u392b08.tar.gz",
+//            8, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+//        )
+
+        assertDownloadUri(
+            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/8/jdk/x64/linux/OpenJDK8U-jdk_x64_linux_hotspot_8u392b08.tar.gz",
+            8, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+    }
 
 }

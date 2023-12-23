@@ -7,8 +7,8 @@ import java.util.*
 
 abstract class JDKToolchainResolver: JavaToolchainResolver {
 
-    private val api: FoojayApi = FoojayApi()
-//    private val api: JDKDownloadApi = JDKDownloadApi()
+//    private val api: FoojayApi = FoojayApi()
+    private val api: JDKDownloadApi = JDKDownloadApi()
 
     override fun resolve(request: JavaToolchainRequest): Optional<JavaToolchainDownload> {
         val spec = request.javaToolchainSpec
