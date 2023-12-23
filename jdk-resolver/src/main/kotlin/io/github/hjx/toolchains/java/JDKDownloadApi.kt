@@ -1,4 +1,4 @@
-package com.github.hjx.toolchains.java
+package io.github.hjx.toolchains.java
 
 import org.gradle.api.GradleException
 import org.gradle.jvm.toolchain.JavaLanguageVersion
@@ -38,9 +38,14 @@ class JDKDownloadApi {
             operatingSystem: OperatingSystem,
             architecture: Architecture
     ): Links? {
-        val pkg_download_redirect = URI("https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_windows-x64_bin.zip")
-        val pkg_info_uri = URI("https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_windows-x64_bin.zip")
-        return Links(pkg_download_redirect, pkg_info_uri)
+        if (version == JavaLanguageVersion.of(21)) {
+            val pkg_download_redirect = URI("https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_windows-x64_bin.zip")
+            val pkg_info_uri = URI("https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_windows-x64_bin.zip")
+            return Links(pkg_download_redirect, pkg_info_uri)
+        }
+
+        return null;
+
     }
 
     internal fun match(vendor: JvmVendorSpec, implementation: JvmImplementation, version: JavaLanguageVersion): List<Distribution> {

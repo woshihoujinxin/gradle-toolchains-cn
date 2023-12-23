@@ -38,7 +38,7 @@ gradlePlugin {
 
     val discoToolchains by plugins.creating {
         id = "io.github.hjx.toolchains.jdk-resolver"
-        implementationClass = "com.github.hjx.toolchains.java.JDKToolchainsPlugin"
+        implementationClass = "io.github.hjx.toolchains.java.JDKToolchainsPlugin"
         displayName = "Foojay Disco API Toolchains Resolver"
         description = "Toolchains resolver using the Foojay Disco API for resolving Java runtimes."
         tags.set(listOf("jdk", "cn", "toolchains"))
@@ -46,7 +46,7 @@ gradlePlugin {
 
     val discoToolchainsConvenience by plugins.creating {
         id = "io.github.hjx.toolchains.jdk-resolver-convention"
-        implementationClass = "com.github.hjx.toolchains.java.JDKToolchainsConventionPlugin"
+        implementationClass = "io.github.hjx.toolchains.java.JDKToolchainsConventionPlugin"
         displayName = "Foojay Disco API Toolchains Resolver Convention"
         description = "Toolchains resolver using the Foojay Disco API for resolving Java runtimes. Automatically configures toolchain management."
         tags.set(listOf("jdk", "cn", "toolchains"))

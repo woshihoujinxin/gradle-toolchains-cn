@@ -1,6 +1,5 @@
-package org.gradle.toolchains.foojay
+package io.github.hjx.toolchains.java
 
-import com.github.hjx.toolchains.java.*
 import org.gradle.api.GradleException
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JvmImplementation
@@ -48,7 +47,7 @@ class FoojayApi {
 
     internal fun match(vendor: JvmVendorSpec, implementation: JvmImplementation, version: JavaLanguageVersion): List<Distribution> {
         fetchDistributionsIfMissing()
-        return com.github.hjx.toolchains.java.match(distributions, vendor, implementation, version)
+        return match(distributions, vendor, implementation, version)
     }
 
     private fun fetchDistributionsIfMissing() {

@@ -1,4 +1,4 @@
-package com.github.hjx.toolchains.java
+package io.github.hjx.toolchains.java
 
 import org.gradle.api.initialization.Settings
 import org.gradle.kotlin.dsl.jvm

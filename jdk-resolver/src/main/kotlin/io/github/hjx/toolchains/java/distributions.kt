@@ -1,4 +1,4 @@
-package com.github.hjx.toolchains.java
+package io.github.hjx.toolchains.java
 
 import com.google.gson.Gson
 import org.gradle.jvm.toolchain.JavaLanguageVersion

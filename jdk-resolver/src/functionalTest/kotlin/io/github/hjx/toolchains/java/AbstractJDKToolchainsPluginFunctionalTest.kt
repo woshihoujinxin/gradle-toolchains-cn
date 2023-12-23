@@ -1,4 +1,4 @@
-package com.github.hjx.toolchains.java
+package io.github.hjx.toolchains.java
 
 import org.gradle.testkit.runner.GradleRunner
 import org.junit.jupiter.api.BeforeEach

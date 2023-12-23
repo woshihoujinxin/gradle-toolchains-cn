@@ -1,4 +1,4 @@
-package com.github.hjx.toolchains.java
+package io.github.hjx.toolchains.java
 
 import org.gradle.jvm.toolchain.JavaToolchainDownload
 import org.gradle.jvm.toolchain.JavaToolchainRequest
@@ -7,8 +7,8 @@ import java.util.*
 
 abstract class JDKToolchainResolver: JavaToolchainResolver {
 
-//    private val api: FoojayApi = CustomAoi()
-    private val api: JDKDownloadApi = JDKDownloadApi()
+    private val api: FoojayApi = FoojayApi()
+//    private val api: JDKDownloadApi = JDKDownloadApi()
 
     override fun resolve(request: JavaToolchainRequest): Optional<JavaToolchainDownload> {
         val spec = request.javaToolchainSpec

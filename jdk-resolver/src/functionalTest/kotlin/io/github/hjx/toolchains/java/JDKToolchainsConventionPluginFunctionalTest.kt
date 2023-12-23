@@ -1,4 +1,4 @@
-package com.github.hjx.toolchains.java
+package io.github.hjx.toolchains.java
 
 import kotlin.test.Test
 import kotlin.test.assertTrue
