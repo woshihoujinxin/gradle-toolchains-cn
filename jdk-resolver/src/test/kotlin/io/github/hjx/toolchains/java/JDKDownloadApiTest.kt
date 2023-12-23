@@ -92,10 +92,113 @@ class JDKDownloadApiTest {
 //            8, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
 //        )
 
+//        assertDownloadUri(
+//            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/8/jdk/x64/linux/OpenJDK8U-jdk_x64_linux_hotspot_8u392b08.tar.gz",
+//            8, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+//        )
+
         assertDownloadUri(
-            "https://mirrors.tuna.tsinghua.edu.cn/Adoptium/8/jdk/x64/linux/OpenJDK8U-jdk_x64_linux_hotspot_8u392b08.tar.gz",
-            8, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+            "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_windows-x64_bin.exe",
+            9, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
         )
+
+        assertDownloadUri(
+            "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_linux-x64_bin.tar.gz",
+            9, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_osx-x64_bin.dmg",
+            9, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+        )
+
+        val links10 = listOf(
+            "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_windows-x64_bin.exe",
+            "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_osx-x64_bin.dmg",
+        )
+
+        val links11 = listOf(
+            "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_windows-x64_bin.exe",
+            "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_osx-x64_bin.dmg",
+        )
+
+        val links12 = listOf(
+            "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_windows-x64_bin.exe",
+            "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_osx-x64_bin.dmg",
+        )
+
+        val links13 = listOf(
+            "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_windows-x64_bin.exe",
+            "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_osx-x64_bin.dmg",
+        )
+
+        assertDownloadUri(
+            links10.get(0),
+            10, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links10.get(1),
+            10, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links10.get(2),
+            10, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+        )
+
+
+        assertDownloadUri(
+            links11.get(0),
+            11, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links11.get(1),
+            11, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links11.get(2),
+            11, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+        )
+
+
+        assertDownloadUri(
+            links12.get(0),
+            12, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links12.get(1),
+            12, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links12.get(2),
+            12, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links13.get(0),
+            13, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links13.get(1),
+            13, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links13.get(2),
+            13, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+        )
+
+
     }
 
 }

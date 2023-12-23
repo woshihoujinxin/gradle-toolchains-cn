@@ -36,7 +36,7 @@ class JDKDownloadApi {
             operatingSystem: OperatingSystem,
             architecture: Architecture
     ): Links? {
-        val versions = listOf(8, 11, 17, 18, 19, 20, 21)
+        val versions = listOf(8, 9, 11, 12, 13, 17, 18, 19, 20, 21)
         if (!versions.contains(version.asInt())) {
             throw IllegalArgumentException("本插件不支持${versions}外的版本");
         }
@@ -58,12 +58,81 @@ class JDKDownloadApi {
 
         //  https://mirrors.tuna.tsinghua.edu.cn/Adoptium/(11)/jdk/(x64)/(windows)/
         var arch = ""
-        if (version.equals(JavaLanguageVersion.of(8))){
-            arch = architectureMapping.get(architecture).toString()
+        var endpoint = ""
+        if (version.equals(JavaLanguageVersion.of(9))){
+            if (operatingSystem.equals(WINDOWS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_windows-x64_bin.exe"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(LINUX)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_linux-x64_bin.tar.gz"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(MAC_OS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_osx-x64_bin.dmg"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            }
+        } else if (version.equals(JavaLanguageVersion.of(10))){
+            if (operatingSystem.equals(WINDOWS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_windows-x64_bin.exe"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(LINUX)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_linux-x64_bin.tar.gz"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(MAC_OS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_osx-x64_bin.dmg"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            }
+        } else if (version.equals(JavaLanguageVersion.of(11))){
+            if (operatingSystem.equals(WINDOWS)) {
+                endpoint =  "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_windows-x64_bin.zip"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(LINUX)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_linux-x64_bin.tar.gz"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(MAC_OS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_osx-x64_bin.dmg"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            }
+        } else if (version.equals(JavaLanguageVersion.of(12))){
+            if (operatingSystem.equals(WINDOWS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_windows-x64_bin.zip"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(LINUX)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_linux-x64_bin.tar.gz"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(MAC_OS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_osx-x64_bin.dmg"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            }
+        } else if (version.equals(JavaLanguageVersion.of(13))){
+            if (operatingSystem.equals(WINDOWS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_windows-x64_bin.zip"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(LINUX)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_linux-x64_bin.tar.gz"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            } else if (operatingSystem.equals(MAC_OS)) {
+                endpoint = "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_osx-x64_bin.dmg"
+                val uri = URI.create(endpoint)
+                return Links(uri, uri)
+            }
         } else {
             arch = architectureMapping.get(architecture).toString()
+            endpoint = "${DISTRIBUTIONS_ENDPOINT}/${version}/jdk/${arch}/${operatingSystemMapping.get(operatingSystem)}"
         }
-        val endpoint = "${DISTRIBUTIONS_ENDPOINT}/${version}/jdk/${arch}/${operatingSystemMapping.get(operatingSystem)}"
         println("Download url is [ ${SCHEMA}://${endpoint} ]")
         fetchDistributionsIfMissing(endpoint)
         if(!distributions.isEmpty()) {
