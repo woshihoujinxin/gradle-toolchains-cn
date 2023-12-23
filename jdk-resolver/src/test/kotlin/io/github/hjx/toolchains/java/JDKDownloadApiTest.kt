@@ -98,42 +98,60 @@ class JDKDownloadApiTest {
 //        )
 
         assertDownloadUri(
-            "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_windows-x64_bin.exe",
+            "https://repo.huaweicloud.com/openjdk/9.0.4/openjdk-9.0.4_windows-x64_bin.tar.gz",
             9, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
         )
 
         assertDownloadUri(
-            "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/9.0.4/openjdk-9.0.4_linux-x64_bin.tar.gz",
             9, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
         )
 
         assertDownloadUri(
-            "https://repo.huaweicloud.com/java/jdk/9.0.1+11/jdk-9.0.1_osx-x64_bin.dmg",
+            "https://repo.huaweicloud.com/openjdk/9.0.4/openjdk-9.0.4_osx-x64_bin.tar.gz",
             9, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
         )
 
         val links10 = listOf(
-            "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_windows-x64_bin.exe",
-            "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_linux-x64_bin.tar.gz",
-            "https://repo.huaweicloud.com/java/jdk/10.0.2+13/jdk-10.0.2_osx-x64_bin.dmg",
+            "https://repo.huaweicloud.com/openjdk/10.0.2/openjdk-10.0.2_windows-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/10.0.2/openjdk-10.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/10.0.2/openjdk-10.0.2_osx-x64_bin.tar.gz",
         )
 
         val links11 = listOf(
-            "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_windows-x64_bin.exe",
-            "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_linux-x64_bin.tar.gz",
-            "https://repo.huaweicloud.com/java/jdk/11.0.2+9/jdk-11.0.2_osx-x64_bin.dmg",
+            "https://repo.huaweicloud.com/openjdk/11.0.2/openjdk-11.0.2_windows-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/11.0.2/openjdk-11.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/11.0.2/openjdk-11.0.2_osx-x64_bin.tar.gz",
         )
 
         val links12 = listOf(
-            "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_windows-x64_bin.exe",
-            "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_linux-x64_bin.tar.gz",
-            "https://repo.huaweicloud.com/java/jdk/12.0.2+10/jdk-12.0.2_osx-x64_bin.dmg",
+            "https://repo.huaweicloud.com/openjdk/12.0.2/openjdk-12.0.2_windows-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/12.0.2/openjdk-12.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/12.0.2/openjdk-12.0.2_osx-x64_bin.tar.gz",
         )
 
         val links13 = listOf(
-            "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_windows-x64_bin.exe",
-            "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_linux-x64_bin.tar.gz",
-            "https://repo.huaweicloud.com/java/jdk/13+33/jdk-13_osx-x64_bin.dmg",
+            "https://repo.huaweicloud.com/openjdk/13.0.2/openjdk-13.0.2_windows-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/13.0.2/openjdk-13.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/13.0.2/openjdk-13.0.2_osx-x64_bin.tar.gz",
+        )
+
+        val links14 = listOf(
+            "https://repo.huaweicloud.com/openjdk/14.0.2/openjdk-14.0.2_windows-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/14.0.2/openjdk-14.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/14.0.2/openjdk-14.0.2_osx-x64_bin.tar.gz",
+        )
+
+        val links15 = listOf(
+            "https://repo.huaweicloud.com/openjdk/15.0.2/openjdk-15.0.2_windows-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/15.0.2/openjdk-15.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/15.0.2/openjdk-15.0.2_osx-x64_bin.tar.gz",
+        )
+
+        val links16 = listOf(
+            "https://repo.huaweicloud.com/openjdk/16.0.2/openjdk-16.0.2_windows-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/16.0.2/openjdk-16.0.2_linux-x64_bin.tar.gz",
+            "https://repo.huaweicloud.com/openjdk/16.0.2/openjdk-16.0.2_osx-x64_bin.tar.gz",
         )
 
         assertDownloadUri(
@@ -196,6 +214,52 @@ class JDKDownloadApiTest {
         assertDownloadUri(
             links13.get(2),
             13, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links14.get(0),
+            14, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links14.get(1),
+            14, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links14.get(2),
+            14, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+        )
+
+
+        assertDownloadUri(
+            links15.get(0),
+            15, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links15.get(1),
+            15, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links15.get(2),
+            15, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links16.get(0),
+            16, ADOPTIUM, false, OperatingSystem.WINDOWS, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links16.get(1),
+            16, ADOPTIUM, false, OperatingSystem.LINUX, Architecture.X86_64
+        )
+
+        assertDownloadUri(
+            links16.get(2),
+            16, ADOPTIUM, false, OperatingSystem.MAC_OS, Architecture.X86_64
         )
 
 
